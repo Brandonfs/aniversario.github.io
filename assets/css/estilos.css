@@ -1,20 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
 :root {
     --violet-1: #4f2a7f;
     --violet-2: #6e3ca8;
     --violet-3: #8f5dd2;
     --violet-4: #b99af1;
     --paper: #fff8ff;
-    --text: #2f2043;
+    --text: #ffffff;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Palatino Linotype', 'Book Antiqua', serif;
 }
 
 body {
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 17px;
     min-height: 100vh;
     overflow-x: hidden;
     color: var(--text);
@@ -118,7 +121,7 @@ body {
     width: 100%;
     margin: 20px auto;
     padding: 30px;
-    background: rgba(255, 248, 255, 0.72);
+    background: transparent;
     border-radius: 24px;
     box-shadow: 0 16px 40px rgba(31, 12, 60, 0.45);
     border: 1px solid rgba(143, 93, 210, 0.25);
@@ -138,9 +141,11 @@ body {
 
 h1,
 h2 {
+    font-family: 'Cormorant Garamond', 'Garamond', 'Palatino Linotype', 'Book Antiqua', serif;
+    font-weight: 600;
     text-align: center;
     margin-bottom: 18px;
-    color: var(--violet-1);
+    color: #fff;
 }
 
 h1 {
@@ -161,10 +166,17 @@ h1 {
     margin-right: auto;
 }
 
+#step2 .hero-subtitle {
+    font-style: italic;
+    font-size: clamp(1.12rem, 2.7vw, 1.46rem);
+    color: #f6ecff;
+    text-shadow: 0 4px 14px rgba(37, 13, 66, 0.55);
+}
+
 p {
     font-size: clamp(1rem, 2vw, 1.2rem);
     line-height: 1.7;
-    color: #3e2e55;
+    color: #fff;
     text-align: center;
     margin-bottom: 15px;
 }
@@ -213,12 +225,16 @@ button:hover {
 }
 
 input {
-    border: 1px solid #c7b5e5;
+    border: 1px solid rgba(255, 255, 255, 0.58);
     border-radius: 10px;
     padding: 10px 12px;
     font-size: 1rem;
-    color: var(--text);
-    background: #fff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.78);
 }
 
 .password-box {
@@ -229,16 +245,16 @@ input {
 }
 
 .error-message {
-    color: #a1255e;
+    color: #fff;
     min-height: 20px;
     margin-top: 8px;
 }
 
 .fixed-date {
     font-weight: bold;
-    color: var(--violet-1);
-    background: #f3eaff;
-    border: 1px solid #dbc7ff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 10px;
     padding: 10px 14px;
     width: fit-content;
@@ -267,39 +283,40 @@ input {
 }
 
 .time-card {
-    background: rgba(243, 234, 255, 0.78);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 16px 10px;
     text-align: center;
-    border: 1px solid #dbc7ff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .time-card span {
     display: block;
     font-size: clamp(1.8rem, 4vw, 2.2rem);
-    color: var(--violet-2);
+    color: #fff;
     font-weight: bold;
 }
 
 .letter {
-    background: rgba(255, 248, 255, 0.75);
+    background: transparent;
     border: 1px dashed #b899e6;
     border-radius: 16px;
     padding: 18px;
 }
 
-.anniversary-letter {
-    margin-top: 16px;
+.anniversary-image-wrap {
+    width: min(100%, 760px);
+    margin: 18px auto 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 14px 34px rgba(28, 9, 53, 0.5);
+    border: 1px solid rgba(236, 221, 255, 0.5);
 }
 
-.anniversary-letter p {
-    text-align: left;
-    font-size: clamp(0.98rem, 1.9vw, 1.12rem);
-    margin-bottom: 14px;
-}
-
-.anniversary-letter p:last-child {
-    margin-bottom: 0;
+.anniversary-image {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .gallery {
@@ -359,7 +376,7 @@ input {
     margin-top: -2px;
     margin-bottom: 16px;
     font-size: 0.98rem;
-    color: #5f467d;
+    color: #fff;
 }
 
 .gift-wrapper {
@@ -390,13 +407,13 @@ input {
 .quiz-question {
     font-size: 1.25rem;
     font-weight: bold;
-    color: var(--violet-1);
+    color: #fff;
 }
 
 .quiz-result {
     min-height: 28px;
     font-weight: bold;
-    color: #2f2043;
+    color: #fff;
 }
 
 .lightbox {
@@ -429,7 +446,7 @@ input {
     gap: 16px;
     padding: 18px;
     border-radius: 24px;
-    background: rgba(255, 248, 255, 0.96);
+    background: transparent;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(143, 93, 210, 0.3);
     overflow: hidden;
@@ -447,7 +464,7 @@ input {
     margin: 0;
     font-size: 1.05rem;
     font-weight: bold;
-    color: var(--violet-1);
+    color: #fff;
 }
 
 .lightbox-actions {
