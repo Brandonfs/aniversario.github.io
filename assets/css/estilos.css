@@ -288,6 +288,20 @@ input {
     padding: 18px;
 }
 
+.anniversary-letter {
+    margin-top: 16px;
+}
+
+.anniversary-letter p {
+    text-align: left;
+    font-size: clamp(0.98rem, 1.9vw, 1.12rem);
+    margin-bottom: 14px;
+}
+
+.anniversary-letter p:last-child {
+    margin-bottom: 0;
+}
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
