@@ -12,6 +12,7 @@ const slideInterval = 5000;
 let isPlaying = false;
 let volumeInterval = null;
 let timerInterval = null;
+let currentGalleryIndex = 0;
 
 function initSlideshow() {
     const slideshow = document.getElementById('slideshow');
@@ -33,42 +34,14 @@ function initSlideshow() {
     }, slideInterval);
 }
 
-function toggleMusic() {
-    const audio = document.getElementById('bgmusic');
-    const btn = document.querySelector('#music-player button');
-    const status = document.getElementById('music-status');
-
-    if (isPlaying) {
-        audio.pause();
-        btn.textContent = '🎵 Reproducir';
-        status.textContent = 'Música pausada';
-        isPlaying = false;
-        return;
-    }
-
-    audio.play()
-        .then(() => {
-            btn.textContent = '⏸️ Pausar';
-            status.textContent = '🎶 Reproduciendo...';
-            isPlaying = true;
-        })
-        .catch(() => {
-            status.textContent = 'Pulsa de nuevo para activar música';
-        });
-}
-
 function startMusicWithFadeIn() {
     const audio = document.getElementById('bgmusic');
-    const btn = document.querySelector('#music-player button');
-    const status = document.getElementById('music-status');
 
     audio.volume = 0;
 
     audio.play()
         .then(() => {
             isPlaying = true;
-            btn.textContent = '⏸️ Pausar';
-            status.textContent = '🎶 Reproduciendo...';
 
             clearInterval(volumeInterval);
             volumeInterval = setInterval(() => {
@@ -79,9 +52,7 @@ function startMusicWithFadeIn() {
                 }
             }, 60);
         })
-        .catch(() => {
-            status.textContent = 'Activa la música con el botón';
-        });
+        .catch(() => { });
 }
 
 function createHearts() {
@@ -156,10 +127,161 @@ function initDateCounter() {
     timerInterval = setInterval(updateElapsedTime, 1000);
 }
 
+function getGalleryItems() {
+    return Array.from(document.querySelectorAll('#step3 .gallery img, #step3 .gallery video'));
+}
+
+function getGalleryItemSource(item) {
+    if (item.tagName === 'VIDEO') {
+        const source = item.querySelector('source');
+        return source ? source.getAttribute('src') : item.getAttribute('src');
+    }
+
+    return item.getAttribute('src');
+}
+
+function updateLightboxContent() {
+    const items = getGalleryItems();
+    const item = items[currentGalleryIndex];
+    const mediaContainer = document.getElementById('lightbox-media');
+    const title = document.getElementById('lightbox-title');
+    const prevButton = document.getElementById('lightbox-prev');
+    const nextButton = document.getElementById('lightbox-next');
+
+    if (!item || !mediaContainer) {
+        return;
+    }
+
+    mediaContainer.innerHTML = '';
+
+    const source = getGalleryItemSource(item);
+    const altText = item.getAttribute('alt') || `Recuerdo ${currentGalleryIndex + 1}`;
+    title.textContent = `${altText} (${currentGalleryIndex + 1}/${items.length})`;
+
+    if (item.tagName === 'VIDEO') {
+        const video = document.createElement('video');
+        video.src = source;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        mediaContainer.appendChild(video);
+    } else {
+        const image = document.createElement('img');
+        image.src = source;
+        image.alt = altText;
+        mediaContainer.appendChild(image);
+    }
+
+    prevButton.disabled = items.length <= 1;
+    nextButton.disabled = items.length <= 1;
+}
+
+function openLightbox(index) {
+    const lightbox = document.getElementById('gallery-lightbox');
+    const items = getGalleryItems();
+
+    if (!lightbox || !items.length) {
+        return;
+    }
+
+    currentGalleryIndex = index;
+    updateLightboxContent();
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('gallery-lightbox');
+    const mediaContainer = document.getElementById('lightbox-media');
+
+    if (!lightbox) {
+        return;
+    }
+
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    if (mediaContainer) {
+        mediaContainer.innerHTML = '';
+    }
+}
+
+function changeLightboxItem(direction) {
+    const items = getGalleryItems();
+
+    if (items.length <= 1) {
+        return;
+    }
+
+    currentGalleryIndex = (currentGalleryIndex + direction + items.length) % items.length;
+    updateLightboxContent();
+}
+
+function initGalleryViewer() {
+    const items = getGalleryItems();
+    const closeButton = document.getElementById('lightbox-close');
+    const prevButton = document.getElementById('lightbox-prev');
+    const nextButton = document.getElementById('lightbox-next');
+    const lightbox = document.getElementById('gallery-lightbox');
+
+    items.forEach((item, index) => {
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('data-gallery-index', index);
+        item.addEventListener('click', () => openLightbox(index));
+        item.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openLightbox(index);
+            }
+        });
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener('click', closeLightbox);
+    }
+
+    if (prevButton) {
+        prevButton.addEventListener('click', () => changeLightboxItem(-1));
+    }
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => changeLightboxItem(1));
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener('click', (event) => {
+            if (event.target instanceof HTMLElement && event.target.dataset.closeLightbox === 'true') {
+                closeLightbox();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (!lightbox || !lightbox.classList.contains('is-open')) {
+            return;
+        }
+
+        if (event.key === 'Escape') {
+            closeLightbox();
+        }
+
+        if (event.key === 'ArrowLeft') {
+            changeLightboxItem(-1);
+        }
+
+        if (event.key === 'ArrowRight') {
+            changeLightboxItem(1);
+        }
+    });
+}
+
 window.onload = () => {
     initSlideshow();
     createHearts();
     initDateCounter();
+    initGalleryViewer();
 
     // Permite presionar Enter en el campo de contraseña.
     document.getElementById('password-input').addEventListener('keydown', (event) => {

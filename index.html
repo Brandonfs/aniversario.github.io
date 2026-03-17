@@ -17,10 +17,6 @@
     <source src="assets/audio/musica.mpeg" type="audio/mpeg" />
     Tu navegador no soporta audio.
   </audio>
-   <div id="music-player">
-    <button onclick="toggleMusic()">🎵 Reproducir</button>
-    <span id="music-status">Música romántica</span>
-  </div>
 
 
   <main class="main-content">
@@ -64,10 +60,11 @@
       </div>
     </section>
 
-    <section class="container"id="step3">
+    <section class="container" id="step3">
       <h1>Nuestras Fotos</h1>
       <div class="decoration">💞 📷</div>
       <p>Estos son nuestros recuerdos más lindos.</p>
+      <p class="gallery-help">Toca cualquier foto para verla grande, cambiar a la siguiente o volver a elegir otra.</p>
       <div class="gallery heart-gallery">
         <img src="assets/images/fondo6.jpeg" alt="Recuerdo 1" />
         <img src="assets/images/fondo7.jpeg" alt="Recuerdo 2" />
@@ -133,6 +130,25 @@
       </div>
     </section>
   </main>
+
+  <div class="lightbox" id="gallery-lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-close-lightbox="true"></div>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-title">Vista previa</p>
+        <div class="lightbox-actions">
+          <button type="button" id="lightbox-close">Volver a fotos</button>
+        </div>
+      </div>
+      <div class="lightbox-content">
+        <button type="button" class="lightbox-nav" id="lightbox-prev" aria-label="Foto anterior">❮</button>
+        <div class="lightbox-media-wrap">
+          <div class="lightbox-media" id="lightbox-media"></div>
+        </div>
+        <button type="button" class="lightbox-nav" id="lightbox-next" aria-label="Foto siguiente">❯</button>
+      </div>
+    </div>
+  </div>
 
   <script src="assets/js/script.js"></script>
 </body>
