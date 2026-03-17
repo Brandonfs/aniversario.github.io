@@ -128,7 +128,7 @@ function initDateCounter() {
 }
 
 function getGalleryItems() {
-    return Array.from(document.querySelectorAll('#step3 .gallery img, #step3 .gallery video'));
+    return Array.from(document.querySelectorAll('#step4 .gallery img, #step4 .gallery video'));
 }
 
 function getGalleryItemSource(item) {

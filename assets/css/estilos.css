@@ -118,7 +118,7 @@ body {
     width: 100%;
     margin: 20px auto;
     padding: 30px;
-    background: rgba(255, 248, 255, 0.9);
+    background: rgba(255, 248, 255, 0.72);
     border-radius: 24px;
     box-shadow: 0 16px 40px rgba(31, 12, 60, 0.45);
     border: 1px solid rgba(143, 93, 210, 0.25);
@@ -145,6 +145,20 @@ h2 {
 
 h1 {
     font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.anniversary-title {
+    font-size: clamp(2.8rem, 9vw, 5.4rem);
+    letter-spacing: 1px;
+    line-height: 1.02;
+    text-shadow: 0 8px 24px rgba(79, 42, 127, 0.28);
+}
+
+.hero-subtitle {
+    font-size: clamp(1.08rem, 2.5vw, 1.35rem);
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 p {
@@ -253,7 +267,7 @@ input {
 }
 
 .time-card {
-    background: #f3eaff;
+    background: rgba(243, 234, 255, 0.78);
     border-radius: 16px;
     padding: 16px 10px;
     text-align: center;
@@ -268,7 +282,7 @@ input {
 }
 
 .letter {
-    background: var(--paper);
+    background: rgba(255, 248, 255, 0.75);
     border: 1px dashed #b899e6;
     border-radius: 16px;
     padding: 18px;
